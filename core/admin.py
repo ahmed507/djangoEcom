@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from core.models import Product, Category, Order, Cart, CartItem, User
+from core.models import Product, Category, Order, Cart, CartItem, User, Address,OrderLine,Review
 from custom_user.admin import EmailUserAdmin
 
 from django.utils.translation import gettext_lazy as _
@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 class CustomUserAdmin(EmailUserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
-        (_("Personal info"), {"fields": ("first_name", "last_name")}),
+        (_("Personal info"), {"fields": ("first_name", "last_name", "phone")}),
         (
             _("Permissions"),
             {
@@ -34,3 +34,6 @@ admin.site.register(Order)
 admin.site.register(Cart)
 admin.site.register(CartItem)
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Address)
+admin.site.register(OrderLine)
+admin.site.register(Review)

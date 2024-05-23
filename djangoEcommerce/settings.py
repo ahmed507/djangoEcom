@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
+
+import dj_database_url
 from dotenv import load_dotenv
 import os
 
@@ -23,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ln@!&n#jl*-29m^x+mxl1ba%e3%k9emf5^(ugnc6x9-w1(gopf'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -142,14 +144,15 @@ WSGI_APPLICATION = 'djangoEcommerce.wsgi.application'
 # }
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("DB_NAME"),
-        "USER": os.getenv("DB_USER"),
-        "PASSWORD": os.getenv("DB_PASSWORD"),
-        "HOST": os.getenv("DB_HOST"),
-        "PORT": os.getenv("DB_PORT"),
-    }
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": os.getenv("DB_NAME"),
+    #     "USER": os.getenv("DB_USER"),
+    #     "PASSWORD": os.getenv("DB_PASSWORD"),
+    #     "HOST": os.getenv("DB_HOST"),
+    #     "PORT": os.getenv("DB_PORT"),
+    # }
+    "default": dj_database_url.parse(os.environ.get("DB_URL"))
 }
 
 # Password validation
